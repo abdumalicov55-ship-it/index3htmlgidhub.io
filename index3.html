@@ -1,0 +1,1512 @@
+<!doctype html>
+<html lang="ru" class="h-full">
+ <head>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MANAS TOURS - Туры по Кыргызстану</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Unbounded:wght@200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --brand-purple: #4F3BDB;
+    --brand-dark: #1a1440;
+    --brand-light: #F5F3FF;
+  }
+  * { -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+  }
+  .font-display { font-family: 'Unbounded', sans-serif; }
+  .font-brutal { font-family: 'Archivo Black', sans-serif; }
+
+  /* Animated text reveal */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideRight {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(79, 59, 219, 0.4); }
+    50% { box-shadow: 0 0 0 20px rgba(79, 59, 219, 0); }
+  }
+
+  .reveal { opacity: 0; }
+  .reveal.active { animation: fadeUp 0.8s forwards; }
+  .reveal-scale { opacity: 0; }
+  .reveal-scale.active { animation: scaleIn 0.7s forwards; }
+  .reveal-right { opacity: 0; }
+  .reveal-right.active { animation: slideRight 0.8s forwards; }
+
+  .char-anim {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  .char-anim.active {
+    animation: fadeUp 0.6s forwards;
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+  }
+
+  .float-anim { animation: float 4s ease-in-out infinite; }
+
+  /* Brutal border shadow */
+  .brutal-box {
+    border: 2px solid #0a0a0a;
+    box-shadow: 6px 6px 0 #0a0a0a;
+    transition: all 0.2s;
+  }
+  .brutal-box:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 #0a0a0a;
+  }
+  .brutal-box-purple {
+    border: 2px solid #0a0a0a;
+    box-shadow: 6px 6px 0 #4F3BDB;
+    transition: all 0.2s;
+  }
+  .brutal-box-purple:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 #4F3BDB;
+  }
+
+  /* Dropdown */
+  .dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+  }
+  .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Slider */
+  .slider-track { transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1); }
+
+  /* FAQ */
+  .faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .faq-item.open .faq-content { max-height: 300px; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+  /* Hero overlay */
+  .hero-grad {
+    background: linear-gradient(180deg, rgba(10,10,30,0.2) 0%, rgba(10,10,30,0.5) 60%, rgba(10,10,30,0.85) 100%);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #f5f3ff; }
+  ::-webkit-scrollbar-thumb { background: #4F3BDB; border-radius: 5px; }
+
+  /* Grid pattern bg */
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(79, 59, 219, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79, 59, 219, 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .noise-bg {
+    position: relative;
+  }
+  .noise-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* Video container */
+  .video-frame {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+  }
+  .video-frame iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+
+  /* Hover image scale */
+  .img-hover { overflow: hidden; }
+  .img-hover img { transition: transform 0.6s ease; }
+  .img-hover:hover img { transform: scale(1.08); }
+
+  /* Page transitions */
+  .page { display: none; }
+  .page.active { display: block; animation: fadeIn 0.4s forwards; }
+
+  /* Scrollbar hide for horizontal */
+  .hide-scroll::-webkit-scrollbar { display: none; }
+  .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .ticker-text {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  /* Mountain pattern */
+  .mountain-silhouette {
+    background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=2000&q=80');
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    background: #0a0a0a;
+    color: white;
+    border: 2px solid #0a0a0a;
+    box-shadow: 5px 5px 0 #4F3BDB;
+    transition: all 0.15s;
+    font-weight: 600;
+  }
+  .btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 #4F3BDB;
+  }
+  .btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0 #4F3BDB;
+  }
+
+  .btn-ghost {
+    background: white;
+    color: #0a0a0a;
+    border: 2px solid #0a0a0a;
+    box-shadow: 5px 5px 0 #0a0a0a;
+    transition: all 0.15s;
+    font-weight: 600;
+  }
+  .btn-ghost:hover {
+    background: #F5F3FF;
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 #0a0a0a;
+  }
+
+  .tag-chip {
+    background: #F5F3FF;
+    border: 2px solid #0a0a0a;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Rotating badge */
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .spin-slow { animation: spin-slow 15s linear infinite; }
+
+  html, body { height: 100%; }
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full w-full overflow-x-hidden">
+  <div class="h-full w-full overflow-auto"><!-- ============= TOP BAR ============= -->
+   <div class="bg-[#0a0a0a] text-white text-xs sm:text-sm py-2.5 px-4 sm:px-6 border-b-2 border-black">
+    <div class="max-w-[1400px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+     <div class="flex items-center gap-4">
+      <div class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5 text-[#a99fff]"></i> <span id="work-hours-display" class="font-medium tracking-wide">Пн-Вс: 09:00 - 21:00</span>
+      </div>
+     </div>
+     <div class="flex items-center gap-4 sm:gap-5"><a href="tel:+996555123456" class="flex items-center gap-1.5 hover:text-[#a99fff] transition"> <i data-lucide="phone" class="w-3.5 h-3.5"></i> <span id="phone-display" class="font-medium">+996 555 123 456</span> </a> <a href="https://wa.me/996555123456" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 hover:text-[#a99fff] transition"> <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline font-medium">WhatsApp</span> </a> <a href="https://t.me/bishkektours" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 hover:text-[#a99fff] transition"> <i data-lucide="send" class="w-3.5 h-3.5"></i> <span class="hidden sm:inline font-medium">Telegram</span> </a>
+     </div>
+    </div>
+   </div><!-- ============= NAV ============= -->
+   <header class="sticky top-0 z-50 bg-white border-b-2 border-black">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-6"><button onclick="navigate('home')" class="flex items-center gap-3 shrink-0">
+      <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-black"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=200&amp;q=80" alt="Logo" loading="lazy" class="w-full h-full object-cover" onerror="this.style.background='#4F3BDB';this.alt='';">
+      </div>
+      <div class="text-left">
+       <div id="company-name-display" class="font-brutal text-base tracking-tight leading-none">
+        MANAS TOURS
+       </div>
+       <div class="text-[10px] text-gray-500 tracking-[0.2em] mt-0.5">
+        KYRGYZSTAN · 2025
+       </div>
+      </div></button>
+     <nav class="hidden lg:flex items-center gap-1 text-sm font-medium"><button onclick="navigate('home')" class="px-3 py-2 hover:bg-[#F5F3FF] transition">Главная</button>
+      <div class="dropdown relative"><button class="px-3 py-2 flex items-center gap-1 hover:bg-[#F5F3FF] transition"> Все туры <i data-lucide="chevron-down" class="w-4 h-4"></i> </button>
+       <div class="dropdown-menu absolute top-full left-0 mt-0 w-72 bg-white border-2 border-black shadow-[6px_6px_0_#4F3BDB] z-50"><button onclick="navigate('tour-type','ala-archa')" class="w-full text-left px-4 py-3 hover:bg-[#F5F3FF] border-b border-gray-200 flex items-center gap-3"> <i data-lucide="mountain" class="w-4 h-4 text-[#4F3BDB]"></i>
+         <div>
+          <div class="font-semibold text-sm">
+           Ала-Арча
+          </div>
+          <div class="text-xs text-gray-500">
+           Национальный парк
+          </div>
+         </div></button> <button onclick="navigate('tour-type','issyk-kul')" class="w-full text-left px-4 py-3 hover:bg-[#F5F3FF] border-b border-gray-200 flex items-center gap-3"> <i data-lucide="waves" class="w-4 h-4 text-[#4F3BDB]"></i>
+         <div>
+          <div class="font-semibold text-sm">
+           Иссык-Куль
+          </div>
+          <div class="text-xs text-gray-500">
+           Жемчужина Тянь-Шаня
+          </div>
+         </div></button> <button onclick="navigate('tour-type','song-kol')" class="w-full text-left px-4 py-3 hover:bg-[#F5F3FF] border-b border-gray-200 flex items-center gap-3"> <i data-lucide="tent" class="w-4 h-4 text-[#4F3BDB]"></i>
+         <div>
+          <div class="font-semibold text-sm">
+           Сон-Куль
+          </div>
+          <div class="text-xs text-gray-500">
+           Высокогорное озеро
+          </div>
+         </div></button> <button onclick="navigate('tour-type','bishkek-city')" class="w-full text-left px-4 py-3 hover:bg-[#F5F3FF] border-b border-gray-200 flex items-center gap-3"> <i data-lucide="building-2" class="w-4 h-4 text-[#4F3BDB]"></i>
+         <div>
+          <div class="font-semibold text-sm">
+           Бишкек Сити
+          </div>
+          <div class="text-xs text-gray-500">
+           Обзорная по городу
+          </div>
+         </div></button> <button onclick="navigate('tour-type','burana')" class="w-full text-left px-4 py-3 hover:bg-[#F5F3FF] flex items-center gap-3"> <i data-lucide="castle" class="w-4 h-4 text-[#4F3BDB]"></i>
+         <div>
+          <div class="font-semibold text-sm">
+           Башня Бурана
+          </div>
+          <div class="text-xs text-gray-500">
+           История Великого шёлкового пути
+          </div>
+         </div></button>
+       </div>
+      </div><button onclick="navigate('catalog')" class="px-3 py-2 hover:bg-[#F5F3FF] transition">Каталог туров</button> <button onclick="navigate('prices')" class="px-3 py-2 hover:bg-[#F5F3FF] transition">Цены 2026</button> <button onclick="navigate('types')" class="px-3 py-2 hover:bg-[#F5F3FF] transition">Типы туров</button> <button onclick="navigate('hotels')" class="px-3 py-2 hover:bg-[#F5F3FF] transition">Отели</button>
+     </nav>
+     <div class="flex items-center gap-3"><button class="btn-primary hidden sm:inline-flex px-5 py-2.5 text-sm items-center gap-2" onclick="scrollToSection('contact')"> <i data-lucide="calendar" class="w-4 h-4"></i> Забронировать </button> <button class="lg:hidden p-2 border-2 border-black" onclick="toggleMobileMenu()"> <i data-lucide="menu" class="w-5 h-5"></i> </button>
+     </div>
+    </div><!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t-2 border-black bg-white">
+     <div class="px-4 py-3 space-y-1 text-sm font-medium"><button onclick="navigate('home'); toggleMobileMenu()" class="block w-full text-left py-2">Главная</button> <button onclick="navigate('catalog'); toggleMobileMenu()" class="block w-full text-left py-2">Каталог туров</button> <button onclick="navigate('prices'); toggleMobileMenu()" class="block w-full text-left py-2">Цены 2026</button> <button onclick="navigate('types'); toggleMobileMenu()" class="block w-full text-left py-2">Типы туров</button> <button onclick="navigate('hotels'); toggleMobileMenu()" class="block w-full text-left py-2">Отели</button>
+     </div>
+    </div>
+   </header><!-- ============================================= --> <!-- ============== HOME PAGE ==================== --> <!-- ============================================= -->
+   <main id="page-home" class="page active"><!-- HERO -->
+    <section class="relative w-full bg-black overflow-hidden" style="height: 92%; min-height: 600px;"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=2400&amp;q=85" alt="Горы Кыргызстана" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.background='linear-gradient(135deg,#1a1440,#4F3BDB)'; this.alt='';">
+     <div class="absolute inset-0 hero-grad"></div><!-- Grid overlay -->
+     <div class="absolute inset-0 grid-bg opacity-30"></div><!-- Floating badge -->
+     <div class="absolute top-8 right-8 hidden md:block float-anim z-10">
+      <div class="relative w-32 h-32">
+       <svg class="w-full h-full spin-slow" viewbox="0 0 100 100"><defs>
+         <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
+        </defs> <text fill="white" font-size="8.5" font-family="Unbounded" font-weight="700" letter-spacing="2">
+         <textpath href="#circlePath">
+          MANAS TOURS · EST 2015 · КЫРГЫЗСТАН ·
+         </textpath>
+        </text>
+       </svg>
+       <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-14 h-14 bg-[#4F3BDB] rounded-full flex items-center justify-center border-2 border-white"><i data-lucide="mountain-snow" class="w-7 h-7 text-white"></i>
+        </div>
+       </div>
+      </div>
+     </div><!-- Content -->
+     <div class="relative z-10 h-full max-w-[1400px] mx-auto px-4 sm:px-8 flex flex-col justify-end pb-16 md:pb-24">
+      <div class="reveal"><span class="tag-chip inline-flex items-center gap-2 bg-[#4F3BDB] text-white border-white"> <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> TURS · 2026 SEASON OPEN </span>
+      </div>
+      <h1 id="hero-title-display" class="font-display font-black text-white leading-[0.9] tracking-[-0.04em] mt-6" style="font-size: clamp(2.5rem, 8vw, 7rem);"><span class="block reveal" style="animation-delay:0.1s">ОТКРОЙТЕ</span> <span class="block reveal" style="animation-delay:0.2s"> <span class="italic font-light" style="font-family:'Unbounded'; font-weight:200;">дикий</span> <span class="text-[#a99fff]">КЫРГЫЗСТАН</span> </span></h1>
+      <div class="mt-8 grid md:grid-cols-2 gap-8 items-end">
+       <p id="hero-subtitle-display" class="text-white/90 text-base md:text-lg max-w-md reveal" style="animation-delay:0.3s">Незабываемые приключения в сердце Центральной Азии. Горы, озёра, кочевая культура — всё, что делает Кыргызстан легендарным.</p>
+       <div class="flex flex-wrap gap-3 md:justify-end reveal" style="animation-delay:0.4s"><button onclick="navigate('catalog')" class="btn-primary px-7 py-4 text-sm uppercase tracking-wider flex items-center gap-2"> Смотреть туры <i data-lucide="arrow-right" class="w-4 h-4"></i> </button> <button onclick="scrollToSection('popular')" class="btn-ghost px-7 py-4 text-sm uppercase tracking-wider bg-white/10 text-white border-white backdrop-blur" style="box-shadow: 5px 5px 0 rgba(255,255,255,0.3);"> Популярное </button>
+       </div>
+      </div><!-- Stats row -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 border-t-2 border-white/30 pt-8">
+       <div class="reveal" style="animation-delay:0.5s">
+        <div class="font-brutal text-white text-4xl md:text-5xl">
+         10+
+        </div>
+        <div class="text-white/60 text-xs uppercase tracking-widest mt-1">
+         Лет опыта
+        </div>
+       </div>
+       <div class="reveal" style="animation-delay:0.6s">
+        <div class="font-brutal text-white text-4xl md:text-5xl">
+         50+
+        </div>
+        <div class="text-white/60 text-xs uppercase tracking-widest mt-1">
+         Маршрутов
+        </div>
+       </div>
+       <div class="reveal" style="animation-delay:0.7s">
+        <div class="font-brutal text-white text-4xl md:text-5xl">
+         15K
+        </div>
+        <div class="text-white/60 text-xs uppercase tracking-widest mt-1">
+         Туристов
+        </div>
+       </div>
+       <div class="reveal" style="animation-delay:0.8s">
+        <div class="font-brutal text-[#a99fff] text-4xl md:text-5xl">
+         4.9
+        </div>
+        <div class="text-white/60 text-xs uppercase tracking-widest mt-1">
+         Рейтинг
+        </div>
+       </div>
+      </div>
+     </div><!-- Scroll indicator -->
+     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-[10px] uppercase tracking-widest flex flex-col items-center gap-1 z-10"><span>Scroll</span> <i data-lucide="chevron-down" class="w-4 h-4 animate-bounce"></i>
+     </div>
+    </section><!-- MARQUEE -->
+    <section class="bg-[#4F3BDB] border-y-2 border-black py-5 overflow-hidden">
+     <div class="marquee-track">
+      <div class="flex items-center gap-8 pr-8 ticker-text text-white text-3xl md:text-4xl"><span>АЛА-АРЧА</span><span class="text-[#a99fff]">✦</span> <span>ИССЫК-КУЛЬ</span><span class="text-[#a99fff]">✦</span> <span>СОН-КУЛЬ</span><span class="text-[#a99fff]">✦</span> <span>БИШКЕК</span><span class="text-[#a99fff]">✦</span> <span>ТЯНЬ-ШАНЬ</span><span class="text-[#a99fff]">✦</span> <span>БУРАНА</span><span class="text-[#a99fff]">✦</span>
+      </div>
+      <div class="flex items-center gap-8 pr-8 ticker-text text-white text-3xl md:text-4xl"><span>АЛА-АРЧА</span><span class="text-[#a99fff]">✦</span> <span>ИССЫК-КУЛЬ</span><span class="text-[#a99fff]">✦</span> <span>СОН-КУЛЬ</span><span class="text-[#a99fff]">✦</span> <span>БИШКЕК</span><span class="text-[#a99fff]">✦</span> <span>ТЯНЬ-ШАНЬ</span><span class="text-[#a99fff]">✦</span> <span>БУРАНА</span><span class="text-[#a99fff]">✦</span>
+      </div>
+     </div>
+    </section><!-- POPULAR DESTINATIONS -->
+    <section id="popular" class="py-20 md:py-28 bg-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+       <div><span class="tag-chip reveal">01 · Направления</span>
+        <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Популярные<br><span class="text-[#4F3BDB] italic font-extralight">направления</span></h2>
+       </div>
+       <p class="text-gray-600 max-w-sm text-base md:text-lg reveal" style="animation-delay:0.2s">Самые востребованные маршруты 2026 года. От городских экскурсий до высокогорных экспедиций.</p>
+      </div>
+      <div id="popular-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+     </div>
+    </section><!-- VIDEO REVIEWS -->
+    <section class="py-20 md:py-28 bg-[#F5F3FF] border-y-2 border-black">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+       <div><span class="tag-chip reveal">02 · Видеообзоры</span>
+        <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Смотрите<br><span class="italic font-extralight">как это было</span></h2>
+       </div>
+       <div class="text-right reveal" style="animation-delay:0.2s">
+        <div class="font-brutal text-6xl md:text-8xl text-[#4F3BDB]">
+         04
+        </div>
+        <div class="text-xs tracking-[0.3em] uppercase text-gray-500">
+         Новых видео
+        </div>
+       </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+       <div class="reveal-scale">
+        <div class="brutal-box-purple bg-white">
+         <div class="video-frame bg-black"><iframe src="https://www.youtube.com/embed/pm6nXHQy4Ek" title="Кыргызстан - природа" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+         </div>
+         <div class="p-5 border-t-2 border-black">
+          <div class="flex items-center gap-2 text-xs uppercase tracking-wider text-[#4F3BDB] font-bold mb-2"><i data-lucide="play-circle" class="w-4 h-4"></i> Тур-видео
+          </div>
+          <h3 class="font-display font-bold text-xl">Жемчужина Центральной Азии</h3>
+          <p class="text-sm text-gray-600 mt-1">Полный обзор красот Кыргызстана</p>
+         </div>
+        </div>
+       </div>
+       <div class="reveal-scale" style="animation-delay:0.1s">
+        <div class="brutal-box-purple bg-white">
+         <div class="video-frame bg-black"><iframe src="https://www.youtube.com/embed/2dWUiJHlvJM" title="Иссык-Куль" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+         </div>
+         <div class="p-5 border-t-2 border-black">
+          <div class="flex items-center gap-2 text-xs uppercase tracking-wider text-[#4F3BDB] font-bold mb-2"><i data-lucide="play-circle" class="w-4 h-4"></i> Обзор
+          </div>
+          <h3 class="font-display font-bold text-xl">Озеро Иссык-Куль</h3>
+          <p class="text-sm text-gray-600 mt-1">Второе по величине горное озеро мира</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- TEAM -->
+    <section class="py-20 md:py-28 bg-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+       <div><span class="tag-chip reveal">03 · Команда</span>
+        <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Наша<br><span class="text-[#4F3BDB] italic font-extralight">команда</span></h2>
+       </div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+       <div class="reveal-scale">
+        <div class="img-hover aspect-[3/4] border-2 border-black overflow-hidden bg-gray-100"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&amp;q=80" loading="lazy" alt="Айдар" class="w-full h-full object-cover" onerror="this.style.background='#4F3BDB';">
+        </div>
+        <div class="mt-3">
+         <div class="font-display font-bold text-lg">
+          Айдар К.
+         </div>
+         <div class="text-xs uppercase tracking-wider text-gray-500">
+          CEO · Основатель
+         </div>
+        </div>
+       </div>
+       <div class="reveal-scale" style="animation-delay:0.1s">
+        <div class="img-hover aspect-[3/4] border-2 border-black overflow-hidden bg-gray-100"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&amp;q=80" loading="lazy" alt="Жылдыз" class="w-full h-full object-cover" onerror="this.style.background='#4F3BDB';">
+        </div>
+        <div class="mt-3">
+         <div class="font-display font-bold text-lg">
+          Жылдыз А.
+         </div>
+         <div class="text-xs uppercase tracking-wider text-gray-500">
+          Гид · Эксперт
+         </div>
+        </div>
+       </div>
+       <div class="reveal-scale" style="animation-delay:0.2s">
+        <div class="img-hover aspect-[3/4] border-2 border-black overflow-hidden bg-gray-100"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&amp;q=80" loading="lazy" alt="Эрлан" class="w-full h-full object-cover" onerror="this.style.background='#4F3BDB';">
+        </div>
+        <div class="mt-3">
+         <div class="font-display font-bold text-lg">
+          Эрлан М.
+         </div>
+         <div class="text-xs uppercase tracking-wider text-gray-500">
+          Альпинист
+         </div>
+        </div>
+       </div>
+       <div class="reveal-scale" style="animation-delay:0.3s">
+        <div class="img-hover aspect-[3/4] border-2 border-black overflow-hidden bg-gray-100"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&amp;q=80" loading="lazy" alt="Бермет" class="w-full h-full object-cover" onerror="this.style.background='#4F3BDB';">
+        </div>
+        <div class="mt-3">
+         <div class="font-display font-bold text-lg">
+          Бермет С.
+         </div>
+         <div class="text-xs uppercase tracking-wider text-gray-500">
+          Менеджер
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- ABOUT US VIDEO -->
+    <section class="py-20 md:py-28 bg-[#0a0a0a] text-white noise-bg">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="grid md:grid-cols-12 gap-10 items-center">
+       <div class="md:col-span-5"><span class="tag-chip border-white bg-transparent text-white reveal">04 · О нас</span>
+        <h2 class="font-display font-black text-5xl md:text-6xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Мы живём<br><span class="text-[#a99fff] italic font-extralight">горами</span></h2>
+        <p class="text-white/70 text-base md:text-lg mt-6 reveal" style="animation-delay:0.2s">Уже более 10 лет мы показываем миру настоящий Кыргызстан. Каждый наш тур — это история, рассказанная через вершины Тянь-Шаня, синеву Иссык-Куля и гостеприимство кочевой культуры.</p>
+        <div class="mt-8 grid grid-cols-2 gap-4 reveal" style="animation-delay:0.3s">
+         <div class="border-l-2 border-[#4F3BDB] pl-4">
+          <div class="font-brutal text-3xl">
+           98%
+          </div>
+          <div class="text-xs text-white/60 uppercase tracking-wider">
+           Довольных клиентов
+          </div>
+         </div>
+         <div class="border-l-2 border-[#4F3BDB] pl-4">
+          <div class="font-brutal text-3xl">
+           365
+          </div>
+          <div class="text-xs text-white/60 uppercase tracking-wider">
+           Дней в году
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="md:col-span-7 reveal-scale">
+        <div class="brutal-box-purple bg-black">
+         <div class="video-frame"><iframe src="https://www.youtube.com/embed/pm6nXHQy4Ek?rel=0" title="О нас" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- ADVANTAGES -->
+    <section class="py-20 md:py-28 bg-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="mb-14"><span class="tag-chip reveal">05 · Преимущества</span>
+       <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Наши<br><span class="text-[#4F3BDB] italic font-extralight">преимущества</span></h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-0 border-2 border-black">
+       <div class="p-8 border-r-2 border-b-2 lg:border-b-0 border-black hover:bg-[#F5F3FF] transition reveal">
+        <div class="w-14 h-14 bg-[#4F3BDB] border-2 border-black flex items-center justify-center mb-5"><i data-lucide="shield-check" class="w-7 h-7 text-white"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2">Безопасность</h3>
+        <p class="text-gray-600 text-sm">Все маршруты проверены, страховка включена в стоимость каждого тура.</p>
+       </div>
+       <div class="p-8 border-r-2 lg:border-r-2 border-b-2 lg:border-b-0 border-black hover:bg-[#F5F3FF] transition reveal" style="animation-delay:0.1s">
+        <div class="w-14 h-14 bg-[#4F3BDB] border-2 border-black flex items-center justify-center mb-5"><i data-lucide="users" class="w-7 h-7 text-white"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2">Опытные гиды</h3>
+        <p class="text-gray-600 text-sm">Местные эксперты со знанием 3 языков и опытом более 5 лет.</p>
+       </div>
+       <div class="p-8 lg:border-r-2 border-b-2 lg:border-b-0 border-black hover:bg-[#F5F3FF] transition reveal" style="animation-delay:0.2s">
+        <div class="w-14 h-14 bg-[#4F3BDB] border-2 border-black flex items-center justify-center mb-5"><i data-lucide="badge-percent" class="w-7 h-7 text-white"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2">Честные цены</h3>
+        <p class="text-gray-600 text-sm">Без скрытых платежей. Всё включено — от трансфера до питания.</p>
+       </div>
+       <div class="p-8 border-black hover:bg-[#F5F3FF] transition reveal" style="animation-delay:0.3s">
+        <div class="w-14 h-14 bg-[#4F3BDB] border-2 border-black flex items-center justify-center mb-5"><i data-lucide="headphones" class="w-7 h-7 text-white"></i>
+        </div>
+        <h3 class="font-display font-bold text-xl mb-2">Поддержка 24/7</h3>
+        <p class="text-gray-600 text-sm">Мы всегда на связи во время вашего путешествия. Любой вопрос — решим.</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- WHAT YOU GET -->
+    <section class="py-20 md:py-28 bg-[#4F3BDB] text-white noise-bg">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="mb-14"><span class="tag-chip bg-white text-black reveal">06 · Включено</span>
+       <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Что вы<br><span class="italic font-extralight text-[#a99fff]">получите</span></h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+       <div class="bg-white text-black p-7 border-2 border-black reveal" style="animation-delay:0.1s">
+        <div class="flex items-start justify-between mb-6"><i data-lucide="car" class="w-10 h-10 text-[#4F3BDB]"></i> <span class="font-brutal text-5xl text-[#F5F3FF]">01</span>
+        </div>
+        <h3 class="font-display font-bold text-2xl">Трансфер</h3>
+        <p class="text-gray-600 text-sm mt-2">Комфортные минивэны и внедорожники для любых дорог Кыргызстана.</p>
+       </div>
+       <div class="bg-white text-black p-7 border-2 border-black reveal" style="animation-delay:0.2s">
+        <div class="flex items-start justify-between mb-6"><i data-lucide="utensils" class="w-10 h-10 text-[#4F3BDB]"></i> <span class="font-brutal text-5xl text-[#F5F3FF]">02</span>
+        </div>
+        <h3 class="font-display font-bold text-2xl">Питание</h3>
+        <p class="text-gray-600 text-sm mt-2">Национальная и европейская кухня. Завтрак, обед и ужин включены.</p>
+       </div>
+       <div class="bg-white text-black p-7 border-2 border-black reveal" style="animation-delay:0.3s">
+        <div class="flex items-start justify-between mb-6"><i data-lucide="bed" class="w-10 h-10 text-[#4F3BDB]"></i> <span class="font-brutal text-5xl text-[#F5F3FF]">03</span>
+        </div>
+        <h3 class="font-display font-bold text-2xl">Проживание</h3>
+        <p class="text-gray-600 text-sm mt-2">Отели 3-5★, юрты, гостевые дома — на ваш выбор.</p>
+       </div>
+       <div class="bg-white text-black p-7 border-2 border-black reveal" style="animation-delay:0.4s">
+        <div class="flex items-start justify-between mb-6"><i data-lucide="map" class="w-10 h-10 text-[#4F3BDB]"></i> <span class="font-brutal text-5xl text-[#F5F3FF]">04</span>
+        </div>
+        <h3 class="font-display font-bold text-2xl">Экскурсии</h3>
+        <p class="text-gray-600 text-sm mt-2">Все входные билеты и авторские программы уже включены в стоимость.</p>
+       </div>
+       <div class="bg-white text-black p-7 border-2 border-black reveal" style="animation-delay:0.5s">
+        <div class="flex items-start justify-between mb-6"><i data-lucide="heart-pulse" class="w-10 h-10 text-[#4F3BDB]"></i> <span class="font-brutal text-5xl text-[#F5F3FF]">05</span>
+        </div>
+        <h3 class="font-display font-bold text-2xl">Страховка</h3>
+        <p class="text-gray-600 text-sm mt-2">Медицинское страхование на весь период путешествия.</p>
+       </div>
+       <div class="bg-white text-black p-7 border-2 border-black reveal" style="animation-delay:0.6s">
+        <div class="flex items-start justify-between mb-6"><i data-lucide="camera" class="w-10 h-10 text-[#4F3BDB]"></i> <span class="font-brutal text-5xl text-[#F5F3FF]">06</span>
+        </div>
+        <h3 class="font-display font-bold text-2xl">Фотосессия</h3>
+        <p class="text-gray-600 text-sm mt-2">Профессиональный фотограф в подарок в каждом туре от 5 дней.</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- PHOTO SLIDER -->
+    <section class="py-20 md:py-28 bg-white overflow-hidden">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 mb-10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+       <div><span class="tag-chip reveal">07 · Галерея</span>
+        <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Фото<br><span class="text-[#4F3BDB] italic font-extralight">с туров</span></h2>
+       </div>
+       <div class="flex gap-3 reveal" style="animation-delay:0.2s"><button onclick="slidePhotos(-1)" class="w-14 h-14 border-2 border-black flex items-center justify-center hover:bg-[#4F3BDB] hover:text-white transition"> <i data-lucide="arrow-left" class="w-5 h-5"></i> </button> <button onclick="slidePhotos(1)" class="w-14 h-14 border-2 border-black flex items-center justify-center hover:bg-[#4F3BDB] hover:text-white transition"> <i data-lucide="arrow-right" class="w-5 h-5"></i> </button>
+       </div>
+      </div>
+     </div>
+     <div class="overflow-hidden">
+      <div id="photo-slider" class="slider-track flex gap-5 px-4 sm:px-6" style="transform: translateX(0);"><!-- Dynamically filled -->
+      </div>
+     </div>
+    </section><!-- ACCOMMODATION -->
+    <section class="py-20 md:py-28 bg-[#F5F3FF] border-y-2 border-black">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="mb-14"><span class="tag-chip reveal">08 · Проживание</span>
+       <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Проживание<br><span class="text-[#4F3BDB] italic font-extralight">в туре</span></h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+       <div class="reveal-scale">
+        <div class="brutal-box bg-white">
+         <div class="aspect-[4/3] overflow-hidden border-b-2 border-black"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&amp;q=80" loading="lazy" alt="Отель" class="w-full h-full object-cover">
+         </div>
+         <div class="p-6"><span class="tag-chip">5★ ОТЕЛЬ</span>
+          <h3 class="font-display font-bold text-2xl mt-3">Премиум отели</h3>
+          <p class="text-gray-600 text-sm mt-2">Ведущие отели Бишкека и Чолпон-Аты с полным сервисом.</p>
+          <div class="mt-5 pt-5 border-t-2 border-black flex justify-between items-center"><span class="text-xs uppercase tracking-wider text-gray-500">От</span> <span class="font-brutal text-2xl text-[#4F3BDB]">$120/ночь</span>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="reveal-scale" style="animation-delay:0.1s">
+        <div class="brutal-box bg-white">
+         <div class="aspect-[4/3] overflow-hidden border-b-2 border-black"><img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=800&amp;q=80" loading="lazy" alt="Юрта" class="w-full h-full object-cover">
+         </div>
+         <div class="p-6"><span class="tag-chip">ЮРТА</span>
+          <h3 class="font-display font-bold text-2xl mt-3">Юрточный лагерь</h3>
+          <p class="text-gray-600 text-sm mt-2">Традиционное кочевое жильё на берегах горных озёр.</p>
+          <div class="mt-5 pt-5 border-t-2 border-black flex justify-between items-center"><span class="text-xs uppercase tracking-wider text-gray-500">От</span> <span class="font-brutal text-2xl text-[#4F3BDB]">$45/ночь</span>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="reveal-scale" style="animation-delay:0.2s">
+        <div class="brutal-box bg-white">
+         <div class="aspect-[4/3] overflow-hidden border-b-2 border-black"><img src="https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=800&amp;q=80" loading="lazy" alt="Гостевой дом" class="w-full h-full object-cover">
+         </div>
+         <div class="p-6"><span class="tag-chip">GUEST HOUSE</span>
+          <h3 class="font-display font-bold text-2xl mt-3">Гостевые дома</h3>
+          <p class="text-gray-600 text-sm mt-2">Уютные семейные дома с домашней кухней и теплом.</p>
+          <div class="mt-5 pt-5 border-t-2 border-black flex justify-between items-center"><span class="text-xs uppercase tracking-wider text-gray-500">От</span> <span class="font-brutal text-2xl text-[#4F3BDB]">$30/ночь</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- HOW TO BOOK -->
+    <section class="py-20 md:py-28 bg-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="mb-14 text-center"><span class="tag-chip reveal">09 · Бронирование</span>
+       <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Как<br><span class="text-[#4F3BDB] italic font-extralight">забронировать</span></h2>
+      </div>
+      <div class="grid md:grid-cols-4 gap-0 relative">
+       <div class="p-8 border-2 border-black bg-white relative z-10 reveal">
+        <div class="font-brutal text-8xl text-[#F5F3FF] leading-none">
+         01
+        </div>
+        <div class="mt-4"><i data-lucide="phone-call" class="w-8 h-8 text-[#4F3BDB] mb-3"></i>
+         <h3 class="font-display font-bold text-xl">Свяжитесь</h3>
+         <p class="text-gray-600 text-sm mt-2">Позвоните или напишите в WhatsApp/Telegram для консультации.</p>
+        </div>
+       </div>
+       <div class="p-8 border-2 border-l-0 md:border-l-0 border-t-0 md:border-t-2 border-black bg-[#F5F3FF] relative z-10 reveal" style="animation-delay:0.1s">
+        <div class="font-brutal text-8xl text-white leading-none">
+         02
+        </div>
+        <div class="mt-4"><i data-lucide="clipboard-list" class="w-8 h-8 text-[#4F3BDB] mb-3"></i>
+         <h3 class="font-display font-bold text-xl">Выберите тур</h3>
+         <p class="text-gray-600 text-sm mt-2">Менеджер подберёт лучший вариант под ваши даты и бюджет.</p>
+        </div>
+       </div>
+       <div class="p-8 border-2 border-l-0 md:border-l-0 border-t-0 md:border-t-2 border-black bg-white relative z-10 reveal" style="animation-delay:0.2s">
+        <div class="font-brutal text-8xl text-[#F5F3FF] leading-none">
+         03
+        </div>
+        <div class="mt-4"><i data-lucide="credit-card" class="w-8 h-8 text-[#4F3BDB] mb-3"></i>
+         <h3 class="font-display font-bold text-xl">Оплатите 30%</h3>
+         <p class="text-gray-600 text-sm mt-2">Вносите предоплату для брони. Остаток — по прибытии.</p>
+        </div>
+       </div>
+       <div class="p-8 border-2 border-l-0 md:border-l-0 border-t-0 md:border-t-2 border-black bg-[#4F3BDB] text-white relative z-10 reveal" style="animation-delay:0.3s">
+        <div class="font-brutal text-8xl text-[#a99fff] leading-none">
+         04
+        </div>
+        <div class="mt-4"><i data-lucide="plane-takeoff" class="w-8 h-8 text-white mb-3"></i>
+         <h3 class="font-display font-bold text-xl">В путь!</h3>
+         <p class="text-white/80 text-sm mt-2">Мы встретим вас в аэропорту и проведём незабываемый тур.</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- FAQ -->
+    <section class="py-20 md:py-28 bg-[#0a0a0a] text-white">
+     <div class="max-w-[1000px] mx-auto px-4 sm:px-6">
+      <div class="mb-14"><span class="tag-chip bg-transparent border-white text-white reveal">10 · FAQ</span>
+       <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] leading-[0.95] mt-4 reveal" style="animation-delay:0.1s">Популярные<br><span class="text-[#a99fff] italic font-extralight">вопросы</span></h2>
+      </div>
+      <div class="space-y-3" id="faq-list"></div>
+     </div>
+    </section><!-- CONTACT / FOOTER -->
+    <footer id="contact" class="relative text-white overflow-hidden border-t-2 border-black"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=2400&amp;q=85" alt="Горы Кыргызстана" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.background='#1a1440'; this.alt='';">
+     <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(10,10,30,0.85) 0%, rgba(10,10,30,0.95) 100%);"></div>
+     <div class="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 py-20 md:py-24">
+      <div class="grid md:grid-cols-12 gap-10 mb-16">
+       <div class="md:col-span-5">
+        <h3 class="font-display font-black text-5xl md:text-6xl tracking-[-0.03em] leading-[0.95]">Готовы<br><span class="text-[#a99fff] italic font-extralight">отправиться?</span></h3>
+        <p class="text-white/70 mt-6 max-w-md">Свяжитесь с нами прямо сейчас и получите персональную консультацию + скидку 10% на первый тур.</p>
+        <div class="flex flex-wrap gap-3 mt-8"><a href="https://wa.me/996555123456" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 bg-[#25D366] text-white border-2 border-white font-semibold flex items-center gap-2 hover:bg-[#1da851] transition"> <i data-lucide="message-circle" class="w-5 h-5"></i> WhatsApp </a> <a href="https://t.me/bishkektours" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 bg-[#0088cc] text-white border-2 border-white font-semibold flex items-center gap-2 hover:bg-[#0077b5] transition"> <i data-lucide="send" class="w-5 h-5"></i> Telegram </a>
+        </div>
+       </div>
+       <div class="md:col-span-4 md:col-start-7">
+        <div class="text-xs uppercase tracking-[0.3em] text-white/50 mb-5">
+         Контакты
+        </div>
+        <div class="space-y-4">
+         <div class="flex items-start gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-[#a99fff] mt-0.5 shrink-0"></i>
+          <div>
+           <div class="text-xs text-white/50 uppercase tracking-wider">
+            Адрес
+           </div>
+           <div id="address-footer-display" class="font-medium">
+            г. Бишкек, ул. Чуй 123
+           </div>
+          </div>
+         </div>
+         <div class="flex items-start gap-3"><i data-lucide="phone" class="w-5 h-5 text-[#a99fff] mt-0.5 shrink-0"></i>
+          <div>
+           <div class="text-xs text-white/50 uppercase tracking-wider">
+            Телефон
+           </div>
+           <div id="phone-footer-display" class="font-medium">
+            +996 555 123 456
+           </div>
+          </div>
+         </div>
+         <div class="flex items-start gap-3"><i data-lucide="mail" class="w-5 h-5 text-[#a99fff] mt-0.5 shrink-0"></i>
+          <div>
+           <div class="text-xs text-white/50 uppercase tracking-wider">
+            Email
+           </div>
+           <div class="font-medium">
+            info@manastours.kg
+           </div>
+          </div>
+         </div>
+         <div class="flex items-start gap-3"><i data-lucide="clock" class="w-5 h-5 text-[#a99fff] mt-0.5 shrink-0"></i>
+          <div>
+           <div class="text-xs text-white/50 uppercase tracking-wider">
+            Режим работы
+           </div>
+           <div id="hours-footer-display" class="font-medium">
+            Пн-Вс: 09:00 - 21:00
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="md:col-span-3 md:col-start-11">
+        <div class="text-xs uppercase tracking-[0.3em] text-white/50 mb-5">
+         Соцсети
+        </div>
+        <div class="grid grid-cols-3 gap-2"><a href="#" target="_blank" rel="noopener noreferrer" class="aspect-square border-2 border-white/30 flex items-center justify-center hover:bg-[#4F3BDB] hover:border-[#4F3BDB] transition"> <i data-lucide="instagram" class="w-5 h-5"></i> </a> <a href="#" target="_blank" rel="noopener noreferrer" class="aspect-square border-2 border-white/30 flex items-center justify-center hover:bg-[#4F3BDB] hover:border-[#4F3BDB] transition"> <i data-lucide="facebook" class="w-5 h-5"></i> </a> <a href="#" target="_blank" rel="noopener noreferrer" class="aspect-square border-2 border-white/30 flex items-center justify-center hover:bg-[#4F3BDB] hover:border-[#4F3BDB] transition"> <i data-lucide="youtube" class="w-5 h-5"></i> </a> <a href="#" target="_blank" rel="noopener noreferrer" class="aspect-square border-2 border-white/30 flex items-center justify-center hover:bg-[#4F3BDB] hover:border-[#4F3BDB] transition"> <i data-lucide="twitter" class="w-5 h-5"></i> </a> <a href="#" target="_blank" rel="noopener noreferrer" class="aspect-square border-2 border-white/30 flex items-center justify-center hover:bg-[#4F3BDB] hover:border-[#4F3BDB] transition"> <i data-lucide="send" class="w-5 h-5"></i> </a> <a href="#" target="_blank" rel="noopener noreferrer" class="aspect-square border-2 border-white/30 flex items-center justify-center hover:bg-[#4F3BDB] hover:border-[#4F3BDB] transition"> <i data-lucide="message-circle" class="w-5 h-5"></i> </a>
+        </div>
+       </div>
+      </div>
+      <div class="border-t-2 border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+       <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-white"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=200&amp;q=80" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        <div id="company-footer-display" class="font-brutal tracking-tight">
+         MANAS TOURS
+        </div>
+       </div>
+       <div class="text-xs text-white/50 tracking-wider">
+        © 2025 MANAS TOURS · MADE WITH LOVE IN KYRGYZSTAN 🇰🇬
+       </div>
+      </div>
+     </div>
+    </footer>
+   </main><!-- ============================================= --> <!-- ============== CATALOG PAGE ================= --> <!-- ============================================= -->
+   <main id="page-catalog" class="page">
+    <section class="py-16 md:py-20 bg-[#F5F3FF] border-b-2 border-black">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6"><button onclick="navigate('home')" class="flex items-center gap-2 text-sm font-semibold mb-6 hover:text-[#4F3BDB]"> <i data-lucide="arrow-left" class="w-4 h-4"></i> На главную </button> <span class="tag-chip">Каталог</span>
+      <h1 class="font-display font-black text-5xl md:text-8xl tracking-[-0.03em] leading-[0.9] mt-4">Все <span class="text-[#4F3BDB] italic font-extralight">туры</span></h1>
+     </div>
+    </section>
+    <section class="py-16 bg-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div id="catalog-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+     </div>
+    </section>
+   </main><!-- ============================================= --> <!-- ============== PRICES PAGE ================== --> <!-- ============================================= -->
+   <main id="page-prices" class="page">
+    <section class="py-16 md:py-20 bg-[#0a0a0a] text-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6"><button onclick="navigate('home')" class="flex items-center gap-2 text-sm font-semibold mb-6 hover:text-[#a99fff]"> <i data-lucide="arrow-left" class="w-4 h-4"></i> На главную </button> <span class="tag-chip bg-transparent border-white text-white">Прайс 2026</span>
+      <h1 class="font-display font-black text-5xl md:text-8xl tracking-[-0.03em] leading-[0.9] mt-4">Цены на <span class="text-[#a99fff] italic font-extralight">2026</span></h1>
+      <p class="text-white/70 max-w-xl mt-6">Все цены указаны за одного человека. Групповые скидки от 4 человек.</p>
+     </div>
+    </section>
+    <section class="py-16 bg-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div class="border-2 border-black overflow-hidden">
+       <div class="grid grid-cols-12 bg-[#4F3BDB] text-white text-xs uppercase tracking-wider font-bold">
+        <div class="col-span-5 p-4">
+         Тур
+        </div>
+        <div class="col-span-2 p-4 hidden md:block">
+         Длительность
+        </div>
+        <div class="col-span-2 p-4 hidden md:block">
+         Сезон
+        </div>
+        <div class="col-span-3 md:col-span-3 p-4 text-right">
+         Цена
+        </div>
+       </div>
+       <div id="price-list"></div>
+      </div>
+     </div>
+    </section>
+   </main><!-- ============================================= --> <!-- ============== TYPES PAGE =================== --> <!-- ============================================= -->
+   <main id="page-types" class="page">
+    <section class="py-16 md:py-20 bg-gradient-to-br from-[#4F3BDB] to-[#1a1440] text-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6"><button onclick="navigate('home')" class="flex items-center gap-2 text-sm font-semibold mb-6 hover:text-[#a99fff]"> <i data-lucide="arrow-left" class="w-4 h-4"></i> На главную </button> <span class="tag-chip bg-white text-black">Типы</span>
+      <h1 class="font-display font-black text-5xl md:text-8xl tracking-[-0.03em] leading-[0.9] mt-4">Типы <span class="text-[#a99fff] italic font-extralight">туров</span></h1>
+     </div>
+    </section>
+    <section class="py-16 bg-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 space-y-8" id="types-list"></div>
+    </section>
+   </main><!-- ============================================= --> <!-- ============== HOTELS PAGE ================== --> <!-- ============================================= -->
+   <main id="page-hotels" class="page">
+    <section class="py-16 md:py-20 bg-[#F5F3FF] border-b-2 border-black">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6"><button onclick="navigate('home')" class="flex items-center gap-2 text-sm font-semibold mb-6 hover:text-[#4F3BDB]"> <i data-lucide="arrow-left" class="w-4 h-4"></i> На главную </button> <span class="tag-chip">Размещение</span>
+      <h1 class="font-display font-black text-5xl md:text-8xl tracking-[-0.03em] leading-[0.9] mt-4">Наши <span class="text-[#4F3BDB] italic font-extralight">отели</span></h1>
+     </div>
+    </section>
+    <section class="py-16 bg-white">
+     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+      <div id="hotels-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+     </div>
+    </section>
+   </main><!-- ============================================= --> <!-- ============== TOUR DETAIL PAGE ============= --> <!-- ============================================= -->
+   <main id="page-tour" class="page">
+    <div id="tour-detail-content"></div>
+   </main><!-- ============================================= --> <!-- ============== TOUR TYPE DETAIL ============= --> <!-- ============================================= -->
+   <main id="page-tour-type" class="page">
+    <div id="tour-type-content"></div>
+   </main>
+  </div>
+  <script>
+// ===================== DATA =====================
+const tours = [
+  {
+    id: 'ala-archa',
+    title: 'Ала-Арча',
+    subtitle: 'Национальный парк',
+    duration: '1 день',
+    price: '$45',
+    season: 'Круглый год',
+    image: 'ala archa.jpg',
+    gallery: [
+      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=85',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85',
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=85'
+    ],
+    description: 'Всего 40 км от Бишкека — и вы в самом сердце Тянь-Шаня. Ущелье Ала-Арча встретит вас кристально чистыми реками, водопадами и снежными вершинами более 4500 метров.',
+    highlights: ['Водопад Ак-Сай', 'Ледник Рацека', 'Альпинистский лагерь', 'Горные пикники']
+  },
+  {
+    id: 'issyk-kul',
+    title: 'Иссык-Куль',
+    subtitle: 'Жемчужина Тянь-Шаня',
+    duration: '3 дня / 2 ночи',
+    price: '$180',
+    season: 'Май — Октябрь',
+    image: 'kol.jpg',
+    gallery: [
+      'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=1200&q=85',
+      'https://images.unsplash.com/photo-1500322969630-a26ab6eb64cc?w=1200&q=85',
+      'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1200&q=85'
+    ],
+    description: 'Второе по величине горное озеро мира не замерзает даже зимой. Тёплая вода летом, горячие источники и живописные пляжи — идеальный тур для отдыха.',
+    highlights: ['Пляжи Чолпон-Аты', 'Сказка каньон', 'Горячие источники', 'Петроглифы']
+  },
+  {
+    id: 'song-kol',
+    title: 'Сон-Куль',
+    subtitle: 'Высокогорное озеро',
+    duration: '2 дня / 1 ночь',
+    price: '$220',
+    season: 'Июнь — Сентябрь',
+    image: 'son kol.jpg',
+    gallery: [
+      'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200&q=85',
+      'https://images.unsplash.com/photo-1528127269322-539801943592?w=1200&q=85'
+    ],
+    description: 'На высоте 3016 метров раскинулось второе по величине озеро Кыргызстана. Ночёвка в настоящей юрте под звёздным небом — опыт, который невозможно забыть.',
+    highlights: ['Ночь в юрте', 'Табуны лошадей', 'Млечный путь', 'Кочевая кухня']
+  },
+  {
+    id: 'bishkek-city',
+    title: 'Бишкек Сити',
+    subtitle: 'Обзорный по городу',
+    duration: '4 часа',
+    price: '$25',
+    season: 'Круглый год',
+    image: 'bishkek.jpg',
+    gallery: [
+      'https://images.unsplash.com/photo-1519638399535-1b036603ac77?w=1200&q=85'
+    ],
+    description: 'Познакомьтесь со столицей Кыргызстана. Советская архитектура, современные парки и живописная площадь Ала-Тоо.',
+    highlights: ['Площадь Ала-Тоо', 'Дубовый парк', 'Ошский базар', 'Музеи']
+  },
+  {
+    id: 'burana',
+    title: 'Башня Бурана',
+    subtitle: 'Шёлковый путь',
+    duration: '1 день',
+    price: '$55',
+    season: 'Круглый год',
+    image: 'burana.jpg',
+    gallery: [
+      'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&q=85'
+    ],
+    description: 'Средневековый минарет XI века — единственное, что осталось от древнего города Баласагун. Прикоснитесь к истории Великого шёлкового пути.',
+    highlights: ['Минарет XI века', 'Каменные балбалы', 'Археомузей', 'Панорама гор']
+  },
+  {
+    id: 'tian-shan',
+    title: 'Тянь-Шань Трек',
+    subtitle: 'Горный поход',
+    duration: '7 дней',
+    price: '$680',
+    season: 'Июль — Август',
+    image: 'tan shain.jpg',
+    gallery: [
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85'
+    ],
+    description: 'Для настоящих искателей приключений — недельный трек по нетронутым уголкам Небесных гор.',
+    highlights: ['Высота 4000м+', 'Ледники', 'Горные перевалы', 'Палаточный лагерь']
+  }
+];
+
+const tourTypes = [
+  {
+    id: 'adventure',
+    title: 'Приключенческие',
+    subtitle: 'Для искателей адреналина',
+    image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=1200&q=85',
+    description: 'Альпинизм, треккинг, каньонинг и рафтинг. Для тех, кто хочет испытать себя на прочность в диких горах Тянь-Шаня.',
+    tours: ['Тянь-Шань Трек', 'Восхождение на пик Ленина', 'Ала-Арча альпинизм']
+  },
+  {
+    id: 'cultural',
+    title: 'Культурные',
+    subtitle: 'История и традиции',
+    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=1200&q=85',
+    description: 'Погрузитесь в мир кочевых традиций, национальной кухни и древней истории Шёлкового пути.',
+    tours: ['Башня Бурана', 'Этно-деревни', 'Мастер-классы']
+  },
+  {
+    id: 'relax',
+    title: 'Релакс туры',
+    subtitle: 'Спокойный отдых',
+    image: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=1200&q=85',
+    description: 'Пляжи Иссык-Куля, термальные источники и SPA-отели. Идеально для семейного отдыха.',
+    tours: ['Иссык-Куль', 'Термальные источники Джети-Огуз']
+  },
+  {
+    id: 'gastro',
+    title: 'Гастрономические',
+    subtitle: 'Вкус Кыргызстана',
+    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=85',
+    description: 'Попробуйте настоящий бешбармак, куурдак, боорсок и национальные напитки — кумыс и максым.',
+    tours: ['Кулинарный тур по Бишкеку', 'Ужин в юрте']
+  }
+];
+
+const hotels = [
+  { name: 'Hyatt Regency Bishkek', stars: 5, city: 'Бишкек', price: '$180', img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80' },
+  { name: 'Orion Hotel', stars: 4, city: 'Бишкек', price: '$95', img: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80' },
+  { name: 'Raduga Resort', stars: 4, city: 'Иссык-Куль', price: '$120', img: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80' },
+  { name: 'Karven Resort', stars: 5, city: 'Иссык-Куль', price: '$150', img: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80' },
+  { name: 'Yurt Camp Song Kol', stars: 3, city: 'Сон-Куль', price: '$45', img: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80' },
+  { name: 'Green Park Guest', stars: 3, city: 'Каракол', price: '$35', img: 'https://images.unsplash.com/photo-1587061949409-02df41d5e562?w=800&q=80' }
+];
+
+const galleryImages = [
+  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+  'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=80',
+  'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=800&q=80',
+  'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80',
+  'https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80',
+  'https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80',
+  'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800&q=80'
+];
+
+const faqs = [
+  { q: 'Нужна ли виза в Кыргызстан?', a: 'Для граждан более 60 стран виза не требуется при пребывании до 60 дней. Полный список — уточните у менеджера.' },
+  { q: 'Что включено в стоимость тура?', a: 'Трансфер, проживание, питание по программе, все экскурсии, работа гида и страховка. Авиаперелёт — отдельно.' },
+  { q: 'Можно ли перенести даты тура?', a: 'Да, бесплатный перенос дат возможен не позднее чем за 14 дней до начала тура.' },
+  { q: 'Какой уровень физической подготовки нужен?', a: 'Для городских и пляжных туров — любой. Для горных треков рекомендуется средний уровень. Обсудим при бронировании.' },
+  { q: 'Предоставляете ли групповые скидки?', a: 'Конечно! От 4 человек — скидка 10%, от 8 человек — 15%, от 15 — 20%.' }
+];
+
+const popularDestinations = tours.slice(0, 6);
+
+// ===================== RENDERING =====================
+function renderPopular() {
+  const grid = document.getElementById('popular-grid');
+  grid.innerHTML = popularDestinations.map((t, i) => `
+    <div class="reveal-scale" style="animation-delay: ${i * 0.1}s">
+      <article class="brutal-box bg-white h-full flex flex-col">
+        <div class="img-hover aspect-[4/3] overflow-hidden border-b-2 border-black relative">
+          <img src="${t.image}" loading="lazy" alt="${t.title}" class="w-full h-full object-cover" onerror="this.style.background='#4F3BDB';">
+          <div class="absolute top-3 left-3">
+            <span class="tag-chip bg-white">${t.duration}</span>
+          </div>
+        </div>
+        <div class="p-6 flex-1 flex flex-col">
+          <div class="text-xs uppercase tracking-widest text-[#4F3BDB] font-bold">${t.subtitle}</div>
+          <h3 class="font-display font-bold text-2xl mt-1">${t.title}</h3>
+          <p class="text-gray-600 text-sm mt-2 flex-1">${t.description.substring(0, 90)}...</p>
+          <div class="flex items-center justify-between mt-5 pt-5 border-t-2 border-black">
+            <div>
+              <div class="text-xs text-gray-500 uppercase tracking-wider">от</div>
+              <div class="font-brutal text-2xl text-[#4F3BDB]">${t.price}</div>
+            </div>
+            <button onclick="navigate('tour','${t.id}')" class="btn-primary px-5 py-2.5 text-xs uppercase tracking-wider flex items-center gap-2">
+              Подробнее <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function renderCatalog() {
+  const grid = document.getElementById('catalog-grid');
+  grid.innerHTML = tours.map((t, i) => `
+    <article class="brutal-box bg-white h-full flex flex-col">
+      <div class="img-hover aspect-[4/3] overflow-hidden border-b-2 border-black">
+        <img src="${t.image}" loading="lazy" alt="${t.title}" class="w-full h-full object-cover">
+      </div>
+      <div class="p-6 flex-1 flex flex-col">
+        <div class="text-xs uppercase tracking-widest text-[#4F3BDB] font-bold">${t.subtitle}</div>
+        <h3 class="font-display font-bold text-2xl mt-1">${t.title}</h3>
+        <p class="text-gray-600 text-sm mt-2 flex-1">${t.description.substring(0, 100)}...</p>
+        <div class="flex items-center justify-between mt-5 pt-5 border-t-2 border-black">
+          <div class="font-brutal text-2xl text-[#4F3BDB]">${t.price}</div>
+          <button onclick="navigate('tour','${t.id}')" class="btn-primary px-5 py-2.5 text-xs uppercase tracking-wider">Открыть</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+  lucide.createIcons();
+}
+
+function renderPrices() {
+  const list = document.getElementById('price-list');
+  list.innerHTML = tours.map((t, i) => `
+    <div class="grid grid-cols-12 border-b-2 border-black last:border-b-0 hover:bg-[#F5F3FF] transition cursor-pointer" onclick="navigate('tour','${t.id}')">
+      <div class="col-span-8 md:col-span-5 p-4 flex items-center gap-4">
+        <div class="w-14 h-14 border-2 border-black overflow-hidden shrink-0 hidden sm:block">
+          <img src="${t.image}" class="w-full h-full object-cover" loading="lazy">
+        </div>
+        <div>
+          <div class="font-display font-bold text-lg">${t.title}</div>
+          <div class="text-xs text-gray-500">${t.subtitle}</div>
+        </div>
+      </div>
+      <div class="col-span-2 p-4 hidden md:flex items-center text-sm">${t.duration}</div>
+      <div class="col-span-2 p-4 hidden md:flex items-center text-sm">${t.season}</div>
+      <div class="col-span-4 md:col-span-3 p-4 flex items-center justify-end">
+        <span class="font-brutal text-xl md:text-2xl text-[#4F3BDB]">${t.price}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTypes() {
+  const list = document.getElementById('types-list');
+  list.innerHTML = tourTypes.map((t, i) => `
+    <div class="brutal-box bg-white overflow-hidden">
+      <div class="grid md:grid-cols-2">
+        <div class="aspect-[4/3] md:aspect-auto overflow-hidden ${i % 2 ? 'md:order-2' : ''}">
+          <img src="${t.image}" loading="lazy" alt="${t.title}" class="w-full h-full object-cover">
+        </div>
+        <div class="p-8 md:p-12 flex flex-col justify-center">
+          <span class="tag-chip self-start">0${i+1}</span>
+          <h2 class="font-display font-black text-4xl md:text-5xl tracking-[-0.02em] mt-4">${t.title}</h2>
+          <div class="text-[#4F3BDB] uppercase tracking-widest text-sm font-bold mt-2">${t.subtitle}</div>
+          <p class="text-gray-600 mt-4">${t.description}</p>
+          <button onclick="navigate('tour-type','${t.id}')" class="btn-primary self-start mt-6 px-6 py-3 text-xs uppercase tracking-wider flex items-center gap-2">
+            Смотреть туры <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function renderHotels() {
+  const grid = document.getElementById('hotels-grid');
+  grid.innerHTML = hotels.map(h => `
+    <article class="brutal-box bg-white">
+      <div class="aspect-[4/3] overflow-hidden border-b-2 border-black">
+        <img src="${h.img}" loading="lazy" alt="${h.name}" class="w-full h-full object-cover">
+      </div>
+      <div class="p-6">
+        <div class="flex items-center gap-1 text-[#4F3BDB]">
+          ${'★'.repeat(h.stars)}<span class="text-gray-300">${'★'.repeat(5-h.stars)}</span>
+        </div>
+        <h3 class="font-display font-bold text-xl mt-2">${h.name}</h3>
+        <div class="text-xs uppercase tracking-widest text-gray-500 mt-1">${h.city}</div>
+        <div class="mt-4 pt-4 border-t-2 border-black flex justify-between items-center">
+          <span class="text-xs text-gray-500 uppercase">от / ночь</span>
+          <span class="font-brutal text-2xl text-[#4F3BDB]">${h.price}</span>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+function renderFaq() {
+  const list = document.getElementById('faq-list');
+  list.innerHTML = faqs.map((f, i) => `
+    <div class="faq-item border-2 border-white/20 bg-white/5 reveal" style="animation-delay:${i*0.1}s" data-idx="${i}">
+      <button onclick="toggleFaq(${i})" class="w-full p-5 md:p-6 flex items-center justify-between gap-4 text-left">
+        <span class="font-display font-bold text-lg md:text-xl">${f.q}</span>
+        <span class="faq-icon transition-transform shrink-0 w-8 h-8 border-2 border-white flex items-center justify-center">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+        </span>
+      </button>
+      <div class="faq-content">
+        <div class="px-5 md:px-6 pb-6 text-white/70">${f.a}</div>
+      </div>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function toggleFaq(idx) {
+  document.querySelectorAll('.faq-item').forEach(el => {
+    if (el.dataset.idx == idx) el.classList.toggle('open');
+    else el.classList.remove('open');
+  });
+}
+
+// Photo slider
+const slider = document.getElementById('photo-slider');
+slider.innerHTML = [...galleryImages, ...galleryImages].map(src => `
+  <div class="shrink-0 w-72 md:w-96 aspect-[4/5] border-2 border-black img-hover overflow-hidden">
+    <img src="${src}" loading="lazy" alt="Tour photo" class="w-full h-full object-cover">
+  </div>
+`).join('');
+
+let sliderPos = 0;
+function slidePhotos(dir) {
+  const itemW = window.innerWidth >= 768 ? 400 : 304;
+  const maxPos = (galleryImages.length) * itemW;
+  sliderPos += dir * itemW;
+  if (sliderPos < 0) sliderPos = maxPos - itemW;
+  if (sliderPos > maxPos) sliderPos = 0;
+  slider.style.transform = `translateX(-${sliderPos}px)`;
+}
+
+// ===================== TOUR DETAIL =====================
+function renderTourDetail(id) {
+  const t = tours.find(x => x.id === id);
+  if (!t) return;
+  const container = document.getElementById('tour-detail-content');
+  container.innerHTML = `
+    <section class="relative w-full" style="height: 70%; min-height: 500px;">
+      <img src="${t.image}" alt="${t.title}" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 hero-grad"></div>
+      <div class="relative z-10 h-full max-w-[1400px] mx-auto px-4 sm:px-6 flex flex-col justify-end pb-12 text-white">
+        <button onclick="navigate('home')" class="flex items-center gap-2 text-sm font-semibold mb-6 text-white/80 hover:text-white self-start">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Назад
+        </button>
+        <span class="tag-chip bg-[#4F3BDB] text-white border-white self-start">${t.subtitle}</span>
+        <h1 class="font-display font-black text-5xl md:text-8xl tracking-[-0.03em] leading-[0.9] mt-4">${t.title}</h1>
+        <div class="flex flex-wrap gap-5 mt-6 text-sm">
+          <span class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> ${t.duration}</span>
+          <span class="flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4"></i> ${t.season}</span>
+          <span class="flex items-center gap-2"><i data-lucide="tag" class="w-4 h-4"></i> ${t.price}</span>
+        </div>
+      </div>
+    </section>
+    <section class="py-16 bg-white">
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 grid md:grid-cols-3 gap-10">
+        <div class="md:col-span-2">
+          <h2 class="font-display font-black text-4xl tracking-[-0.02em]">Описание</h2>
+          <p class="text-gray-700 text-lg mt-4 leading-relaxed">${t.description}</p>
+          <h3 class="font-display font-black text-2xl mt-10 tracking-[-0.02em]">Что вас ждёт</h3>
+          <div class="grid sm:grid-cols-2 gap-3 mt-5">
+            ${t.highlights.map(h => `
+              <div class="flex items-center gap-3 p-4 border-2 border-black bg-[#F5F3FF]">
+                <i data-lucide="check-circle-2" class="w-5 h-5 text-[#4F3BDB] shrink-0"></i>
+                <span class="font-medium">${h}</span>
+              </div>
+            `).join('')}
+          </div>
+          <h3 class="font-display font-black text-2xl mt-10 tracking-[-0.02em]">Галерея</h3>
+          <div class="grid grid-cols-2 gap-3 mt-5">
+            ${t.gallery.map(g => `
+              <div class="aspect-square border-2 border-black overflow-hidden img-hover">
+                <img src="${g}" loading="lazy" class="w-full h-full object-cover">
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <aside>
+          <div class="brutal-box-purple bg-white p-6 sticky top-24">
+            <div class="text-xs uppercase tracking-widest text-gray-500">Стоимость тура</div>
+            <div class="font-brutal text-5xl text-[#4F3BDB] mt-1">${t.price}</div>
+            <div class="text-sm text-gray-500 mt-1">за человека</div>
+            <hr class="my-5 border-t-2 border-black">
+            <div class="space-y-3 text-sm">
+              <div class="flex justify-between"><span>Длительность</span><span class="font-bold">${t.duration}</span></div>
+              <div class="flex justify-between"><span>Сезон</span><span class="font-bold">${t.season}</span></div>
+              <div class="flex justify-between"><span>Группа</span><span class="font-bold">2-15 чел</span></div>
+            </div>
+            <button onclick="scrollToSection('contact')" class="btn-primary w-full mt-6 py-3.5 text-sm uppercase tracking-wider">Забронировать</button>
+            <a href="https://wa.me/996555123456" target="_blank" rel="noopener noreferrer" class="btn-ghost w-full mt-3 py-3.5 text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+              <i data-lucide="message-circle" class="w-4 h-4"></i> Связаться
+            </a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  `;
+  lucide.createIcons();
+  triggerReveal();
+}
+
+// ===================== TOUR TYPE DETAIL =====================
+function renderTourTypeDetail(id) {
+  const t = tourTypes.find(x => x.id === id);
+  if (!t) return;
+  const container = document.getElementById('tour-type-content');
+  container.innerHTML = `
+    <section class="relative w-full overflow-hidden bg-black" style="height: 80%; min-height: 550px;">
+      <img src="${t.image}" alt="${t.title}" class="absolute inset-0 w-full h-full object-cover opacity-70">
+      <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(79,59,219,0.4), rgba(10,10,30,0.9));"></div>
+      <div class="absolute inset-0 grid-bg opacity-20"></div>
+      <div class="relative z-10 h-full max-w-[1400px] mx-auto px-4 sm:px-6 flex flex-col justify-end pb-16 text-white">
+        <button onclick="navigate('types')" class="flex items-center gap-2 text-sm font-semibold mb-6 text-white/80 hover:text-white self-start">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> К типам туров
+        </button>
+        <span class="tag-chip bg-white text-black self-start">${t.subtitle}</span>
+        <h1 class="font-display font-black tracking-[-0.04em] leading-[0.85] mt-4" style="font-size: clamp(3rem, 10vw, 9rem);">
+          ${t.title.toUpperCase()}
+        </h1>
+        <p class="text-white/80 text-xl md:text-2xl max-w-2xl mt-6">${t.description}</p>
+      </div>
+      <!-- Big number -->
+      <div class="absolute top-10 right-10 font-brutal text-white/10 leading-none hidden md:block" style="font-size: 20rem;">
+        ${String(tourTypes.findIndex(x => x.id === id) + 1).padStart(2,'0')}
+      </div>
+    </section>
+
+    <section class="py-20 bg-[#F5F3FF] border-y-2 border-black">
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+        <div class="grid md:grid-cols-12 gap-10">
+          <div class="md:col-span-4">
+            <span class="tag-chip">Особенности</span>
+            <h2 class="font-display font-black text-5xl md:text-6xl tracking-[-0.03em] mt-4">
+              Почему <span class="text-[#4F3BDB] italic font-extralight">именно это</span>
+            </h2>
+          </div>
+          <div class="md:col-span-8 grid sm:grid-cols-2 gap-5">
+            <div class="bg-white border-2 border-black p-6 brutal-box">
+              <i data-lucide="sparkles" class="w-8 h-8 text-[#4F3BDB] mb-3"></i>
+              <h3 class="font-display font-bold text-xl">Уникальный опыт</h3>
+              <p class="text-gray-600 text-sm mt-2">Программы, которых нет у других операторов в регионе.</p>
+            </div>
+            <div class="bg-white border-2 border-black p-6 brutal-box">
+              <i data-lucide="user-check" class="w-8 h-8 text-[#4F3BDB] mb-3"></i>
+              <h3 class="font-display font-bold text-xl">Персональный подход</h3>
+              <p class="text-gray-600 text-sm mt-2">Адаптируем под ваш уровень и пожелания.</p>
+            </div>
+            <div class="bg-white border-2 border-black p-6 brutal-box">
+              <i data-lucide="compass" class="w-8 h-8 text-[#4F3BDB] mb-3"></i>
+              <h3 class="font-display font-bold text-xl">Эксперты в теме</h3>
+              <p class="text-gray-600 text-sm mt-2">Наши гиды — мастера своего дела с многолетним опытом.</p>
+            </div>
+            <div class="bg-white border-2 border-black p-6 brutal-box">
+              <i data-lucide="award" class="w-8 h-8 text-[#4F3BDB] mb-3"></i>
+              <h3 class="font-display font-bold text-xl">Гарантия качества</h3>
+              <p class="text-gray-600 text-sm mt-2">Возврат средств, если программа не понравилась.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-white">
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
+        <div class="mb-12">
+          <span class="tag-chip">Доступные туры</span>
+          <h2 class="font-display font-black text-5xl md:text-7xl tracking-[-0.03em] mt-4">
+            Туры <span class="text-[#4F3BDB] italic font-extralight">этого типа</span>
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          ${t.tours.map((name, i) => `
+            <div class="brutal-box bg-white p-8 flex flex-col justify-between min-h-[280px] hover:bg-[#F5F3FF] cursor-pointer transition" onclick="navigate('catalog')">
+              <div>
+                <div class="font-brutal text-7xl text-[#F5F3FF] leading-none">0${i+1}</div>
+                <h3 class="font-display font-bold text-2xl mt-4">${name}</h3>
+              </div>
+              <div class="flex items-center justify-between mt-6 pt-5 border-t-2 border-black">
+                <span class="text-xs uppercase tracking-wider text-gray-500">Узнать больше</span>
+                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-[#0a0a0a] text-white">
+      <div class="max-w-[1000px] mx-auto px-4 sm:px-6 text-center">
+        <h2 class="font-display font-black text-5xl md:text-6xl tracking-[-0.03em]">
+          Готовы <span class="text-[#a99fff] italic font-extralight">отправиться?</span>
+        </h2>
+        <p class="text-white/70 mt-5 max-w-lg mx-auto">Свяжитесь с нами для подбора идеального тура этого типа.</p>
+        <div class="flex flex-wrap gap-3 justify-center mt-8">
+          <a href="https://wa.me/996555123456" target="_blank" rel="noopener noreferrer" class="btn-primary px-7 py-4 text-sm uppercase tracking-wider flex items-center gap-2 bg-white text-black" style="box-shadow: 5px 5px 0 #4F3BDB;">
+            <i data-lucide="message-circle" class="w-4 h-4"></i> Написать нам
+          </a>
+          <button onclick="navigate('catalog')" class="btn-ghost px-7 py-4 text-sm uppercase tracking-wider bg-transparent text-white border-white" style="box-shadow: 5px 5px 0 rgba(255,255,255,0.3);">
+            Все туры
+          </button>
+        </div>
+      </div>
+    </section>
+  `;
+  lucide.createIcons();
+}
+
+// ===================== NAVIGATION =====================
+function navigate(page, param) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (target) {
+    target.classList.add('active');
+  } else if (page === 'tour') {
+    document.getElementById('page-tour').classList.add('active');
+    renderTourDetail(param);
+  } else if (page === 'tour-type') {
+    document.getElementById('page-tour-type').classList.add('active');
+    renderTourTypeDetail(param);
+  }
+  if (page === 'tour') {
+    document.getElementById('page-tour').classList.add('active');
+    renderTourDetail(param);
+  }
+  if (page === 'tour-type') {
+    document.getElementById('page-tour-type').classList.add('active');
+    renderTourTypeDetail(param);
+  }
+  // scroll wrapper to top
+  document.querySelector('body > div').scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(triggerReveal, 100);
+}
+
+function scrollToSection(id) {
+  navigate('home');
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 200);
+}
+
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+}
+
+// ===================== REVEAL ANIMATIONS =====================
+function triggerReveal() {
+  const els = document.querySelectorAll('.reveal, .reveal-scale, .reveal-right');
+  els.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const viewportH = window.innerHeight;
+    if (rect.top < viewportH * 0.9) {
+      el.classList.add('active');
+    }
+  });
+}
+
+let scrollContainer;
+window.addEventListener('DOMContentLoaded', () => {
+  scrollContainer = document.querySelector('body > div');
+  if (scrollContainer) {
+    scrollContainer.addEventListener('scroll', triggerReveal);
+  }
+  triggerReveal();
+});
+
+// ===================== INITIAL RENDER =====================
+renderPopular();
+renderCatalog();
+renderPrices();
+renderTypes();
+renderHotels();
+renderFaq();
+lucide.createIcons();
+setTimeout(triggerReveal, 200);
+
+// ===================== ELEMENT SDK =====================
+const defaultConfig = {
+  company_name: 'MANAS TOURS',
+  hero_title: 'Откройте Кыргызстан',
+  hero_subtitle: 'Незабываемые приключения в сердце Центральной Азии. Горы, озёра, кочевая культура — всё, что делает Кыргызстан легендарным.',
+  phone_number: '+996 555 123 456',
+  work_hours: 'Пн-Вс: 09:00 - 21:00',
+  address_text: 'г. Бишкек, ул. Чуй 123'
+};
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => {
+      const c = { ...defaultConfig, ...config };
+      const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+      set('company-name-display', c.company_name);
+      set('company-footer-display', c.company_name);
+      set('phone-display', c.phone_number);
+      set('phone-footer-display', c.phone_number);
+      set('work-hours-display', c.work_hours);
+      set('hours-footer-display', c.work_hours);
+      set('address-footer-display', c.address_text);
+      // Hero keeps its styled markup, only update subtitle text content via id
+      const sub = document.getElementById('hero-subtitle-display');
+      if (sub) sub.textContent = c.hero_subtitle;
+    },
+    mapToCapabilities: () => ({
+      recolorables: [],
+      borderables: [],
+      fontEditable: undefined,
+      fontSizeable: undefined
+    }),
+    mapToEditPanelValues: (config) => {
+      const c = { ...defaultConfig, ...config };
+      return new Map([
+        ['company_name', c.company_name],
+        ['hero_title', c.hero_title],
+        ['hero_subtitle', c.hero_subtitle],
+        ['phone_number', c.phone_number],
+        ['work_hours', c.work_hours],
+        ['address_text', c.address_text]
+      ]);
+    }
+  });
+}
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f16e2a077ad0db3',t:'MTc3NzA1MjM0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+</html>
